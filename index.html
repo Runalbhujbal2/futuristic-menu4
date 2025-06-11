@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Futuristic 3D Menu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: #000;
+      background-image: url('https://images.unsplash.com/photo-1615065591974-4fbbcfc4a04d?auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow-x: hidden;
+      color: #fff;
+    }.roll-on-button {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  background: #00ffea;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #00ffea, 0 0 40px #00ffea;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.menu {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 20px;
+  opacity: 0;
+  pointer-events: none;
+  perspective: 1000px;
+  transform: scale(0);
+  transition: transform 1s ease, opacity 1s ease;
+  overflow-x: auto;
+  padding: 20px;
+}
+
+.menu.show {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.menu-column {
+  background: rgba(0, 0, 0, 0.7);
+  border: 3px solid #0ff;
+  box-shadow: 0 0 15px #0ff, 0 0 30px #0ff;
+  padding: 15px;
+  border-radius: 15px;
+  min-width: 220px;
+  flex: 0 0 auto;
+  transform-style: preserve-3d;
+}
+
+.menu-column:nth-child(odd) {
+  animation: floatX 6s ease-in-out infinite;
+}
+
+.menu-column:nth-child(even) {
+  animation: floatY 6s ease-in-out infinite;
+}
+
+.menu-column h2 {
+  text-align: center;
+  color: #ff00ff;
+  margin-bottom: 15px;
+}
+
+.menu-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-column li {
+  margin: 10px 0;
+  color: #fff;
+  font-weight: bold;
+}
+
+@keyframes floatX {
+  0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+  50% { transform: translateY(-10px) rotateX(10deg) rotateY(10deg); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0) rotateY(0deg); }
+  50% { transform: translateY(10px) rotateY(-10deg); }
+}
+
+@media (max-width: 768px) {
+  .menu {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .menu-column {
+    min-width: 80vw;
+  }
+}
+
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <button class="roll-on-button" onclick="showMenu()">Roll On</button>
+  <div class="menu" id="menu">
+    <div class="menu-column">
+      <h2>Appetizers</h2>
+      <ul>
+        <li>Neon Nachos</li>
+        <li>Cyber Spring Rolls</li>
+        <li>Plasma Puffs</li>
+        <li>Electric Edamame</li>
+        <li>Glitch Garlic Bread</li>
+        <li>Hyper Hummus</li>
+        <li>Quantum Quesadilla</li>
+        <li>Voltage Veggies</li>
+        <li>Stellar Sliders</li>
+        <li>Rad Ravioli Bites</li>
+      </ul>
+    </div>
+    <div class="menu-column">
+      <h2>Beverages</h2>
+      <ul>
+        <li>Fusion Fizz</li>
+        <li>Electric Elixir</li>
+        <li>Galactic Gulp</li>
+        <li>Retro Root Beer</li>
+        <li>Lunar Lemonade</li>
+        <li>Binary Brew</li>
+        <li>Neon Nectar</li>
+        <li>Voltage Vodka</li>
+        <li>Cosmic Cola</li>
+        <li>Pixel Punch</li>
+      </ul>
+    </div>
+    <div class="menu-column">
+      <h2>Main Course</h2>
+      <ul>
+        <li>Circuit Steak</li>
+        <li>Byte Burger</li>
+        <li>Solar Spaghetti</li>
+        <li>Android Alfredo</li>
+        <li>Laser Lamb Chops</li>
+        <li>Nova Noodles</li>
+        <li>Alien Alfredo</li>
+        <li>Matrix Meatballs</li>
+        <li>Chrome Chicken</li>
+        <li>Photon Pizza</li>
+      </ul>
+    </div>
+    <div class="menu-column">
+      <h2>Desserts</h2>
+      <ul>
+        <li>Binary Brownie</li>
+        <li>Laser Lava Cake</li>
+        <li>Cyber Sundae</li>
+        <li>Neon Napoleons</li>
+        <li>Quantum Cheesecake</li>
+        <li>Futuristic Flan</li>
+        <li>Matrix Mousse</li>
+        <li>Pixel Pie</li>
+        <li>Stellar Sorbet</li>
+        <li>Galaxy Gelato</li>
+      </ul>
+    </div>
+  </div>
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+  <script>
+    function showMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.add('show');
+      document.getElementById('bgMusic').play();
+    }
+  </script>
+</body>
+</html>
