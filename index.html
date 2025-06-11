@@ -1,188 +1,265 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Futuristic 3D Menu</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Glowing Cafe Menu</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: #000;
-      background-image: url('https://images.unsplash.com/photo-1615065591974-4fbbcfc4a04d?auto=format&fit=crop&w=1950&q=80');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      overflow-x: hidden;
-      color: #fff;
-    }.roll-on-button {
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+.roll-on-button, .close-button {
   position: fixed;
-  right: 20px;
-  top: 20px;
-  padding: 12px 20px;
-  font-size: 1.2rem;
-  background: #00ffea;
-  color: #000;
+  background: #ff4081;
   border: none;
-  border-radius: 10px;
-  box-shadow: 0 0 20px #00ffea, 0 0 40px #00ffea;
+  padding: 15px 30px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
   cursor: pointer;
-  z-index: 10;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #ff4081, 0 0 30px #ff4081;
+  z-index: 1000;
+  transition: transform 0.3s, background 0.3s;
 }
 
-.menu {
-  position: absolute;
-  top: 100px;
-  left: 0;
-  right: 0;
-  display: flex;
-  gap: 20px;
-  opacity: 0;
-  pointer-events: none;
-  perspective: 1000px;
-  transform: scale(0);
-  transition: transform 1s ease, opacity 1s ease;
-  overflow-x: auto;
-  padding: 20px;
+.roll-on-button:hover, .close-button:hover {
+  transform: scale(1.1);
+  background: #e91e63;
 }
 
-.menu.show {
-  transform: scale(1);
-  opacity: 1;
-  pointer-events: all;
+.roll-on-button {
+  right: 20px;
+  bottom: 20px;
+}
+
+.close-button {
+  left: 20px;
+  bottom: 20px;
+  display: none;
+}
+
+.menu-container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 1s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slideshow {
+  width: 80%;
+  max-width: 600px;
+  margin-top: 60px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #ffea00;
+  text-align: center;
+  color: #ffea00;
+  font-weight: bold;
+  display: none;
+  animation: fadeInUp 1s ease-out;
+}
+
+.menu-grid {
+  display: none;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 40px 20px;
+  width: 100%;
 }
 
 .menu-column {
-  background: rgba(0, 0, 0, 0.7);
-  border: 3px solid #0ff;
-  box-shadow: 0 0 15px #0ff, 0 0 30px #0ff;
-  padding: 15px;
-  border-radius: 15px;
-  min-width: 220px;
-  flex: 0 0 auto;
-  transform-style: preserve-3d;
-}
-
-.menu-column:nth-child(odd) {
-  animation: floatX 6s ease-in-out infinite;
-}
-
-.menu-column:nth-child(even) {
-  animation: floatY 6s ease-in-out infinite;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 20px;
+  padding: 25px;
+  width: 250px;
+  margin: 20px;
+  color: #fff;
+  box-shadow: 0 0 20px #00e676, 0 0 40px #00e676;
+  transform: perspective(1000px) rotateY(0deg);
+  animation: fadeInUp 1s ease-out forwards;
 }
 
 .menu-column h2 {
-  text-align: center;
-  color: #ff00ff;
-  margin-bottom: 15px;
+  font-size: 24px;
+  color: #00e5ff;
+  text-shadow: 0 0 10px #00e5ff;
 }
 
 .menu-column ul {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
 }
 
-.menu-column li {
-  margin: 10px 0;
-  color: #fff;
-  font-weight: bold;
+.menu-column ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #555;
+  color: #ffea00;
+  text-shadow: 0 0 5px #ffea00;
 }
 
-@keyframes floatX {
-  0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
-  50% { transform: translateY(-10px) rotateX(10deg) rotateY(10deg); }
-}
-
-@keyframes floatY {
-  0%, 100% { transform: translateY(0) rotateY(0deg); }
-  50% { transform: translateY(10px) rotateY(-10deg); }
+.menu-column ul li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 768px) {
-  .menu {
-    flex-wrap: nowrap;
-    overflow-x: auto;
+  .menu-grid {
+    flex-direction: column;
+    align-items: center;
   }
+
   .menu-column {
-    min-width: 80vw;
+    width: 90%;
+    margin-bottom: 30px;
   }
 }
 
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
-<body>
-  <button class="roll-on-button" onclick="showMenu()">Roll On</button>
-  <div class="menu" id="menu">
-    <div class="menu-column">
+<body><button class="roll-on-button" onclick="startSlideshow()">Roll On</button> <button class="close-button" onclick="closeMenu()">Close</button>
+
+  <div class="menu-container" id="menuContainer">
+    <div class="slideshow" id="slideshow">
       <h2>Appetizers</h2>
-      <ul>
-        <li>Neon Nachos</li>
-        <li>Cyber Spring Rolls</li>
-        <li>Plasma Puffs</li>
-        <li>Electric Edamame</li>
-        <li>Glitch Garlic Bread</li>
-        <li>Hyper Hummus</li>
-        <li>Quantum Quesadilla</li>
-        <li>Voltage Veggies</li>
-        <li>Stellar Sliders</li>
-        <li>Rad Ravioli Bites</li>
-      </ul>
-    </div>
-    <div class="menu-column">
-      <h2>Beverages</h2>
-      <ul>
-        <li>Fusion Fizz</li>
-        <li>Electric Elixir</li>
-        <li>Galactic Gulp</li>
-        <li>Retro Root Beer</li>
-        <li>Lunar Lemonade</li>
-        <li>Binary Brew</li>
-        <li>Neon Nectar</li>
-        <li>Voltage Vodka</li>
-        <li>Cosmic Cola</li>
-        <li>Pixel Punch</li>
-      </ul>
-    </div>
-    <div class="menu-column">
-      <h2>Main Course</h2>
-      <ul>
-        <li>Circuit Steak</li>
-        <li>Byte Burger</li>
-        <li>Solar Spaghetti</li>
-        <li>Android Alfredo</li>
-        <li>Laser Lamb Chops</li>
-        <li>Nova Noodles</li>
-        <li>Alien Alfredo</li>
-        <li>Matrix Meatballs</li>
-        <li>Chrome Chicken</li>
-        <li>Photon Pizza</li>
-      </ul>
-    </div>
-    <div class="menu-column">
-      <h2>Desserts</h2>
-      <ul>
-        <li>Binary Brownie</li>
-        <li>Laser Lava Cake</li>
-        <li>Cyber Sundae</li>
-        <li>Neon Napoleons</li>
-        <li>Quantum Cheesecake</li>
-        <li>Futuristic Flan</li>
-        <li>Matrix Mousse</li>
-        <li>Pixel Pie</li>
-        <li>Stellar Sorbet</li>
-        <li>Galaxy Gelato</li>
-      </ul>
-    </div>
+      <ul id="slideshowItems"></ul>
+    </div><div class="menu-grid" id="menuGrid">
+  <div class="menu-column">
+    <h2>Appetizers</h2>
+    <ul>
+      <li>Spring Rolls</li>
+      <li>Garlic Bread</li>
+      <li>Bruschetta</li>
+      <li>Nachos</li>
+      <li>Stuffed Mushrooms</li>
+      <li>Paneer Tikka</li>
+      <li>Chicken Wings</li>
+      <li>Onion Rings</li>
+      <li>Mini Tacos</li>
+      <li>Cheese Balls</li>
+    </ul>
   </div>
-  <audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-  </audio>
-  <script>
-    function showMenu() {
-      const menu = document.getElementById('menu');
-      menu.classList.add('show');
-      document.getElementById('bgMusic').play();
+  <div class="menu-column">
+    <h2>Main Course</h2>
+    <ul>
+      <li>Grilled Chicken</li>
+      <li>Paneer Butter Masala</li>
+      <li>Veg Biryani</li>
+      <li>Lasagna</li>
+      <li>Pasta Alfredo</li>
+      <li>Beef Steak</li>
+      <li>Fish Curry</li>
+      <li>Veg Pizza</li>
+      <li>Chicken Burger</li>
+      <li>Dal Makhani</li>
+    </ul>
+  </div>
+  <div class="menu-column">
+    <h2>Beverages</h2>
+    <ul>
+      <li>Lemonade</li>
+      <li>Mango Smoothie</li>
+      <li>Cold Coffee</li>
+      <li>Green Tea</li>
+      <li>Iced Tea</li>
+      <li>Fruit Punch</li>
+      <li>Coca Cola</li>
+      <li>Orange Juice</li>
+      <li>Hot Chocolate</li>
+      <li>Milkshake</li>
+    </ul>
+  </div>
+  <div class="menu-column">
+    <h2>Desserts</h2>
+    <ul>
+      <li>Gulab Jamun</li>
+      <li>Brownie</li>
+      <li>Ice Cream</li>
+      <li>Cheesecake</li>
+      <li>Tiramisu</li>
+      <li>Fruit Salad</li>
+      <li>Custard</li>
+      <li>Donut</li>
+      <li>Chocolate Mousse</li>
+      <li>Rasgulla</li>
+    </ul>
+  </div>
+</div>
+
+  </div>  <audio id="backgroundMusic" loop>
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Soft_and_Furious/Soft_and_Furious_-Calm_Meditation/Soft_and_Furious-05-_Afternoon_Nap.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>  <audio id="natureSounds" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4381c6f758.mp3?filename=forest-nature-sounds-birds-singing-stream-ambience-111440.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>  <audio id="clickSound">
+    <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
+  </audio>  <script>
+    const appetizers = [
+      "Spring Rolls", "Garlic Bread", "Bruschetta", "Nachos", "Stuffed Mushrooms",
+      "Paneer Tikka", "Chicken Wings", "Onion Rings", "Mini Tacos", "Cheese Balls"
+    ];
+
+    const bgMusic = document.getElementById('backgroundMusic');
+    const natureSounds = document.getElementById('natureSounds');
+    const clickSound = document.getElementById('clickSound');
+
+    function startSlideshow() {
+      clickSound.play();
+      bgMusic.play().catch(() => alert("Please interact with the page to enable audio."));
+      natureSounds.play().catch(() => {});
+
+      document.getElementById('menuContainer').style.display = 'flex';
+      document.querySelector('.close-button').style.display = 'block';
+      document.getElementById('slideshow').style.display = 'block';
+      let index = 0;
+      const list = document.getElementById('slideshowItems');
+      list.innerHTML = '';
+
+      const interval = setInterval(() => {
+        if (index < appetizers.length) {
+          const li = document.createElement('li');
+          li.textContent = appetizers[index];
+          list.appendChild(li);
+          index++;
+        } else {
+          clearInterval(interval);
+          setTimeout(() => {
+            document.getElementById('slideshow').style.opacity = 0;
+            setTimeout(() => {
+              document.getElementById('slideshow').style.display = 'none';
+              document.getElementById('menuGrid').style.display = 'flex';
+            }, 1000);
+          }, 1000);
+        }
+      }, 400);
     }
-  </script>
-</body>
+
+    function closeMenu() {
+      bgMusic.pause();
+      natureSounds.pause();
+      bgMusic.currentTime = 0;
+      natureSounds.currentTime = 0;
+      document.getElementById('menuContainer').style.display = 'none';
+      document.getElementById('slideshow').style.display = 'none';
+      document.getElementById('menuGrid').style.display = 'none';
+      document.querySelector('.close-button').style.display = 'none';
+    }
+  </script></body>
 </html>
